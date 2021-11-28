@@ -44,6 +44,7 @@ export function AppTextInput({
           marginVertical: 8,
           borderColor: appColors.inputBorder,
           alignItems: 'center',
+          borderRadius:5
         },
         outerViewStyle,
       ]}

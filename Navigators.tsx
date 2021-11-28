@@ -23,26 +23,61 @@ import ProductDetailScreen from './src/screen/ProductDetailScreen/ProductDetailS
 import ProductFilterScreen from './src/screen/ProductFilterScreen/ProductFilterScreen';
 import CheckoutScreen from './src/screen/CheckoutScreen/CheckoutScreen';
 import OrderScreen from './src/screen/OrderScreen/OrderScreen';
+import MapScreen from './src/screen/MapScreen/MapScreen';
+import AppAddAddress from './src/component/AppAddAddress';
+import AppUpdateAddress from './src/component/AppUpdateAddress';
+import AppUserBasicProfile from './src/component/AppUserBasicProfile';
+import CatalogueScreenLvlThree from './src/screen/CatalogueScreen/CatalogueScreenLvlThree';
+import CatalogueScreenLvlFour from './src/screen/CatalogueScreen/CatalogueScreenLvlFour';
 
 const MainStack = createStackNavigator();
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const LogoTitle = () => {
+const LogoTitle260 = () => {
   return (
     <Image
-      style={{width: 220, height: 40}}
-      source={require('./src/assets/imgs/logoWhite.jpg')}
+      style={{width: 140, height: 40}}
+      source={require('./src/assets/imgs/logo0.png')}
       resizeMode={'contain'}
     />
   );
 };
 
+const LogoTitle340 = () => {
+  return (
+    <Image
+      style={{width: 140, height: 40}}
+      source={require('./src/assets/imgs/logo0.png')}
+      resizeMode={'contain'}
+    />
+  );
+};
 export function MainFlow() {
   return (
     <MainStack.Navigator
-      // initialRouteName="LoginScreen"
-      initialRouteName="BottomTabNavigator"
+      initialRouteName="AppAddAddress"
+      // initialRouteName="BottomTabNavigator"
+      screenOptions={{
+        headerTintColor: 'black',
+        cardStyle: {backgroundColor: '#fff'},
+      }}>
+      <MainStack.Screen
+        options={{
+          headerShown: false,
+        }}
+        // const AppUserBasicProfile={AppUserBasicProfile}
+        name="BottomTabNavigator"
+        component={BottomTabNavigator}
+      />
+    </MainStack.Navigator>
+  );
+}
+
+export function AuthFlow() {
+  return (
+    <MainStack.Navigator
+      initialRouteName="LoginScreen"
       screenOptions={{
         headerTintColor: 'black',
         cardStyle: {backgroundColor: '#fff'},
@@ -53,14 +88,6 @@ export function MainFlow() {
         }}
         name="LoginScreen"
         component={LoginScreen}
-      />
-
-      <MainStack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="BottomTabNavigator"
-        component={BottomTabNavigator}
       />
       <MainStack.Screen
         options={{
@@ -75,22 +102,6 @@ export function MainFlow() {
         }}
         name="ForgetScreen"
         component={ForgetScreen}
-      />
-      <MainStack.Screen
-        options={{
-          // headerShown: false,
-          headerLeft: () => <AppHeaderBackButton />,
-          headerTitle: () => <LogoTitle />,
-        }}
-        name="SearchScreen"
-        component={SearchScreen}
-      />
-      <MainStack.Screen
-        options={{
-          headerShown: false,
-        }}
-        name="ProductDetailScreen"
-        component={ProductDetailScreen}
       />
     </MainStack.Navigator>
   );
@@ -165,12 +176,20 @@ function MainScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: () => <AppHamburgerMenu />,
-        headerTitle: () => <LogoTitle />,
+        // headerLeft: () => <AppHamburgerMenu />,
+        headerLeft: () => <></>,
+        headerTitle: () => <LogoTitle340 />,
         headerRight: () => <AppSearchBarHeader />,
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      <Stack.Screen
+        name="ItemScreen"
+        component={ItemScreen}
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+      />
       <Stack.Screen
         name="ProductFilterScreen"
         component={ProductFilterScreen}
@@ -182,6 +201,30 @@ function MainScreenStack() {
       <Stack.Screen
         name="ProductDetailScreen"
         component={ProductDetailScreen}
+      />
+      <Stack.Screen
+        name="AppAddAddress"
+        component={AppAddAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Add Address',
+        }}
+      />
+      <Stack.Screen
+        name="AppUpdateAddress"
+        component={AppUpdateAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
       />
     </Stack.Navigator>
   );
@@ -191,8 +234,9 @@ function CatalogueScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: () => <AppHamburgerMenu />,
-        headerTitle: () => <LogoTitle />,
+        // headerLeft: () => <AppHamburgerMenu />,
+        headerLeft: () => <></>,
+        headerTitle: () => <LogoTitle340 />,
         headerRight: () => <AppSearchBarHeader />,
       }}>
       <Stack.Screen name="CatalogueScreen" component={CatalogueScreen} />
@@ -200,11 +244,37 @@ function CatalogueScreenStack() {
       <Stack.Screen
         name="CatalogueScreenLvlTwo"
         options={{
+          headerTitle: () => <LogoTitle260 />,
           headerLeft: () => <AppHeaderBackButton />,
         }}
         component={CatalogueScreenLvlTwo}
       />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+
+      <Stack.Screen
+        name="CatalogueScreenLvlThree"
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+        component={CatalogueScreenLvlThree}
+      />
+
+      <Stack.Screen
+        name="CatalogueScreenLvlFour"
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+        component={CatalogueScreenLvlFour}
+      />
+      <Stack.Screen
+        name="ItemScreen"
+        component={ItemScreen}
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+      />
 
       <Stack.Screen
         name="ProductFilterScreen"
@@ -216,6 +286,30 @@ function CatalogueScreenStack() {
       <Stack.Screen
         name="ProductDetailScreen"
         component={ProductDetailScreen}
+      />
+      <Stack.Screen
+        name="AppAddAddress"
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+        component={AppAddAddress}
+      />
+      <Stack.Screen
+        name="AppUpdateAddress"
+        component={AppUpdateAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Add Address',
+        }}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
       />
     </Stack.Navigator>
   );
@@ -225,17 +319,29 @@ function CartScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: () => <AppHamburgerMenu />,
-        headerTitle: () => <LogoTitle />,
+        // headerLeft: () => <AppHamburgerMenu />,
+        headerLeft: () => <></>,
+        headerTitle: () => <LogoTitle340 />,
         headerRight: () => <AppSearchBarHeader />,
       }}>
       <Stack.Screen name="CartScreen" component={CartScreen} />
       <Stack.Screen
         name="CheckoutScreen"
         component={CheckoutScreen}
-        options={{headerLeft: () => <AppHeaderBackButton />}}
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
       />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+
+      <Stack.Screen
+        name="ItemScreen"
+        component={ItemScreen}
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+      />
       <Stack.Screen
         name="ProductFilterScreen"
         component={ProductFilterScreen}
@@ -247,7 +353,36 @@ function CartScreenStack() {
         name="ProductDetailScreen"
         component={ProductDetailScreen}
       />
+      <Stack.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={{headerLeft: () => <AppHeaderBackButton />}}
+      />
       <Stack.Screen name="OrderScreen" component={OrderScreen} />
+      <Stack.Screen
+        name="AppAddAddress"
+        component={AppAddAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Add Address',
+        }}
+      />
+      <Stack.Screen
+        name="AppUpdateAddress"
+        component={AppUpdateAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -256,12 +391,20 @@ function FavouritesScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: () => <AppHamburgerMenu />,
-        headerTitle: () => <LogoTitle />,
+        // headerLeft: () => <AppHamburgerMenu />,
+        headerLeft: () => <></>,
+        headerTitle: () => <LogoTitle340 />,
         headerRight: () => <AppSearchBarHeader />,
       }}>
       <Stack.Screen name="FavouritesScreen" component={FavouritesScreen} />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      <Stack.Screen
+        name="ItemScreen"
+        component={ItemScreen}
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+      />
       <Stack.Screen
         name="ProductFilterScreen"
         component={ProductFilterScreen}
@@ -272,6 +415,30 @@ function FavouritesScreenStack() {
       <Stack.Screen
         name="ProductDetailScreen"
         component={ProductDetailScreen}
+      />
+      <Stack.Screen
+        name="AppAddAddress"
+        component={AppAddAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Add Address',
+        }}
+      />
+      <Stack.Screen
+        name="AppUpdateAddress"
+        component={AppUpdateAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
       />
     </Stack.Navigator>
   );
@@ -281,12 +448,20 @@ function ProfileScreenStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerLeft: () => <AppHamburgerMenu />,
-        headerTitle: () => <LogoTitle />,
+        // headerLeft: () => <AppHamburgerMenu />,
+        headerLeft: () => <></>,
+        headerTitle: () => <LogoTitle340 />,
         headerRight: () => <AppSearchBarHeader />,
       }}>
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <Stack.Screen name="ItemScreen" component={ItemScreen} />
+      <Stack.Screen
+        name="ItemScreen"
+        component={ItemScreen}
+        options={{
+          headerTitle: () => <LogoTitle260 />,
+          headerLeft: () => <AppHeaderBackButton />,
+        }}
+      />
       <Stack.Screen
         name="ProductDetailScreen"
         component={ProductDetailScreen}
@@ -300,6 +475,39 @@ function ProfileScreenStack() {
       />
       <Stack.Screen name="FavouritesScreen" component={FavouritesScreen} />
       <Stack.Screen name="OrderScreen" component={OrderScreen} />
+      <Stack.Screen
+        name="AppAddAddress"
+        component={AppAddAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Add Address',
+        }}
+      />
+      <Stack.Screen
+        name="AppUpdateAddress"
+        component={AppUpdateAddress}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+      />
+
+      <Stack.Screen
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Profile',
+        }}
+        name="AppUserBasicProfile"
+        component={AppUserBasicProfile}
+      />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchScreen}
+        options={{
+          headerLeft: () => <AppHeaderBackButton />,
+          title: 'Update Address',
+        }}
+      />
     </Stack.Navigator>
   );
 }

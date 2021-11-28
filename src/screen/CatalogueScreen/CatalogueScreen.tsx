@@ -7,13 +7,28 @@ import AppTextTitle from '../../component/AppTextTitle';
 export default function CatalogueScreen() {
   return (
     <SafeAreaView style={{flex: 1, paddingLeft: 15, paddingRight: 15}}>
-      <ScrollView>
-        <AppTextTitle title="Catalogue" />
-        <AppCatalogueCategory catalogueName="Women" />
-        <AppCatalogueCategory catalogueName="Men" />
-        <AppCatalogueCategory catalogueName="Kids" />
-        <AppCatalogueCategory catalogueName="Beauty" />
-        <AppCatalogueCategory catalogueName="Home" />
+      <ScrollView showsHorizontalScrollIndicator={false}>
+        <AppTextTitle title="Categories" />
+        <AppCatalogueCategory
+          catalogueName="Burgers"
+          nextNavigationScreen={'CatalogueScreenLvlTwo'}
+        />
+        <AppCatalogueCategory
+          catalogueName="Beverages"
+          nextNavigationScreen={'CatalogueScreenLvlTwo'}
+        />
+        <AppCatalogueCategory
+          catalogueName="Sides"
+          nextNavigationScreen={'CatalogueScreenLvlTwo'}
+        />
+        <AppCatalogueCategory
+          catalogueName="Desserts"
+          nextNavigationScreen={'CatalogueScreenLvlTwo'}
+        />
+        <AppCatalogueCategory
+          catalogueName="Deals"
+          nextNavigationScreen={'CatalogueScreenLvlTwo'}
+        />
       </ScrollView>
     </SafeAreaView>
   );

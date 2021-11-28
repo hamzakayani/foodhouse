@@ -10,9 +10,12 @@ import AppProductCard from '../../component/AppProductCard';
 import AppFavourite from '../../component/AppFavourite';
 import AppAddToCart from '../../component/AppAddToCart';
 
-function ProductDetailScreen() {
+function ProductDetailScreen(props: any) {
+  const product = props.route.params.productData;
+  console.log('rpduct', product);
+
   return (
-    <View style={innerStyles.mainContainer}>
+    <View style={[innerStyles.mainContainer]}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
@@ -20,32 +23,29 @@ function ProductDetailScreen() {
         }}>
         <AppProductDetailSwiper />
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={innerStyles.productName}>
-            Black Stripes Sweater Pair
-          </Text>
+          <Text style={innerStyles.productName}>{product.name}</Text>
           <AppFavourite />
         </View>
-        <Text style={innerStyles.currentPrice}> $300</Text>
-        <AppColor tittleSize={20} colorSize={23} fontWeight={'700'} />
+        <Text style={innerStyles.currentPrice}> ${product.amount}</Text>
+        {/* <AppColor tittleSize={20} colorSize={23} fontWeight={'700'} />
         <AppSize
           tittleSize={20}
           verticalPadding={15}
           horizontalPadding={8}
           fontWeight={'700'}
-        />
+        /> */}
         <View style={innerStyles.descriptionContainer}>
           <Text style={innerStyles.descriptionTittle}>Description</Text>
-          <Text style={innerStyles.description}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod...
+          <Text numberOfLines={2} style={innerStyles.description}>
+            {product.description}
           </Text>
-          <MaterialIcons
+          {/* <MaterialIcons
             name="expand-more"
             size={25}
             style={innerStyles.expandMore}
-          />
+          /> */}
         </View>
-        <View>
+        {/* <View>
           <Text style={innerStyles.relatedProducts}>Related Products</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View
@@ -54,8 +54,12 @@ function ProductDetailScreen() {
               <AppProductCard />
             </View>
           </ScrollView>
-        </View>
-        <AppAddToCart title={'Add to cart'} />
+        </View> */}
+        <AppAddToCart
+          title={'Add to cart'}
+          productID={product.id.toString()}
+          navigationScreen={'CartScreen'}
+        />
       </ScrollView>
     </View>
   );

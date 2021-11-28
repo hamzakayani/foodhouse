@@ -743,11 +743,13 @@ const styles = StyleSheet.create({
   },
 
   off: {
-    paddingHorizontal: 10,
+    alignSelf: 'center',
+    flexWrap: 'wrap',
+    paddingHorizontal: 7,
     paddingVertical: 5,
     backgroundColor: '#CE3E3E',
     color: 'white',
-    width: 52,
+    width: 70,
     position: 'absolute',
     right: 5,
     top: 10,

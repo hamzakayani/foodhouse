@@ -1,47 +1,118 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, Image , TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from '../assets/css/style';
+import FastImage from 'react-native-fast-image';
+import {useForm} from 'react-hook-form';
 
-function AppProductCard(props: any) {
-  
+import {Product} from '../interfaces/IProductData';
+import {useAddFavourite} from '../hooks/Favourites/useAddFavourite';
+import {IAddFavouriteRequest} from '../interfaces/IFavouriteData';
+import {useAppSelector} from '../store/hooks';
+import {useRemoveFavourite} from '../hooks/Favourites/useRemoveFavourite';
+import {SnackbarSuccess} from '../utils/SnackBar';
+import {CalculatePercentage} from '../utils/CalculatePercentage';
+
+function AppProductCard(productData: Product) {
+  console.log(`productDiscount`, productData.productDiscount?.discount);
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm();
+  console.log(
+    `productData?.is_wishlist onSubmitFavourite`,
+    productData?.is_wishlist,
+  );
   const navigation = useNavigation<any>();
-  const [favourite, setFavourite] = useState<boolean>(false);
+  const [favourite, setFavourite] = useState<boolean>(true);
+
+  const onSubmitFavourite = handleSubmit(() => {
+    console.log(`productData?.is_wishlist`, productData?.is_wishlist);
+    if (productData?.is_wishlist == false) {
+      addFavourite.mutate({
+        productId: productData?.id.toString(),
+      });
+    } else if (productData?.is_wishlist == true) {
+      removeFavourite.mutate({
+        id: productData?.id,
+      });
+    }
+  });
+  const addFavourite = useAddFavourite({
+    onSuccess() {
+      // setFavourite(!favourite);
+      SnackbarSuccess('Successfully Added');
+    },
+    onError() {},
+  });
+
+  const removeFavourite = useRemoveFavourite({
+    onSuccess() {
+      // setFavourite(!favourite);
+    },
+    onError() {},
+  });
 
   return (
     <View style={innerStyles.mainContainer}>
-      <View >
+      <View>
         <View style={innerStyles.submainContainer}>
-          {props.sale ? (
-            <Text style={styles.off}>-50%</Text>
-          ) : (
-            <Text style={styles.off}>-50%</Text>
+          {productData.productDiscount && (
+            <Text style={styles.off} numberOfLines={1}>
+              Off {CalculatePercentage(
+                parseInt(productData.productDiscount.discount.value),
+                productData.amount,
+              )}%
+            </Text>
           )}
-          <Image
-            source={require('../assets/imgs/black.jpg')}
+          <FastImage
+            source={require('../assets/imgs/burger.jpeg')}
             style={innerStyles.image}
             resizeMode={'cover'}
           />
           <View style={styles.favourite}>
-            <TouchableOpacity onPress={() => setFavourite(!favourite)}>
+          {/* onPress={onSubmitFavourite} */}
+            <TouchableOpacity>
               <Ionicons
-                name={favourite ? 'heart-outline' : 'heart'}
+                name={
+                  productData.is_wishlist == true ? 'heart-outline' : 'heart'
+                }
                 size={25}
-                color={favourite ? '#373737' : '#CE3E3E'}
+                color={productData.is_wishlist == true ? '#373737' : '#CE3E3E'}
               />
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={innerStyles.productDetailContainer} onPress={()=>navigation.navigate("ProductDetailScreen")}>
-          <Text style={innerStyles.productName}>
-            Black Stripes Sweater Pair
-          </Text>
-          <View style={innerStyles.priceContainer}>
-            <Text style={innerStyles.currentPrice}> $300</Text>
-            <Text style={innerStyles.previousPrice}> $600</Text>
-          </View>
+        <TouchableOpacity
+          style={innerStyles.productDetailContainer}
+          onPress={() =>
+            navigation.navigate('ProductDetailScreen', {
+              productData: productData,
+            })
+          }>
+          <Text style={innerStyles.productName}>{productData.name}</Text>
+
+          {productData.productDiscount && (
+            <View style={innerStyles.priceContainer}>
+              <Text style={innerStyles.currentPrice}>
+                ${productData.amount}
+              </Text>
+              <Text style={innerStyles.previousPrice}>
+                ${productData.amount}
+              </Text>
+            </View>
+          )}
+
+          {productData.productDiscount == null && (
+            <View style={innerStyles.priceContainer}>
+              <Text style={innerStyles.currentPriceWithoutDiscount}>
+                ${productData.amount}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
       </View>
     </View>
@@ -52,8 +123,8 @@ export default AppProductCard;
 
 const innerStyles = StyleSheet.create({
   mainContainer: {
-    margin: 10,
-    width: 160,
+    margin: 5,
+    width: Dimensions.get('screen').width/2-30,
     paddingBottom: 8,
     borderWidth: 2,
     backgroundColor: 'white',
@@ -68,7 +139,7 @@ const innerStyles = StyleSheet.create({
     borderRadius: 8,
   },
   image: {
-    height: 221,
+    height: 150,
     width: '100%',
     alignSelf: 'center',
     marginBottom: 65,
@@ -91,6 +162,12 @@ const innerStyles = StyleSheet.create({
     marginVertical: 8,
   },
   currentPrice: {
+    color: 'red',
+    marginRight: 10,
+    lineHeight: 19,
+    fontSize: 16,
+  },
+  currentPriceWithoutDiscount: {
     color: 'red',
     marginRight: 10,
     lineHeight: 19,

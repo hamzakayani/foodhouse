@@ -61,6 +61,13 @@ function ProductFilterScreen() {
             }}
             data={categoryList}
             setCurrentValue={setFilterData}
+            outerViewProps={{
+              style: {
+                backgroundColor: '#F5F5F5',
+                borderColor:"#383A3D",
+                borderWidth:1
+              },
+            }}
           />
         </View>
 
@@ -76,6 +83,13 @@ function ProductFilterScreen() {
             data={categoryList}
             // setCurrentValue={setCurrentValue}
             // currentValue={currentValue}
+            outerViewProps={{
+              style: {
+                backgroundColor: '#F5F5F5',
+                borderColor:"#383A3D",
+                borderWidth:1
+              },
+            }}
           />
         </View>
 
@@ -87,6 +101,13 @@ function ProductFilterScreen() {
             dropdownInputProps={{
               placeholder: 'ZARA, LiLu, Love Republic, Tezenis, ',
               multiple: true,
+            }}
+            outerViewProps={{
+              style: {
+                backgroundColor: '#F5F5F5',
+                borderColor:"#383A3D",
+                borderWidth:1
+              },
             }}
             data={categoryList}
             // setCurrentValue={setCurrentValue}
@@ -122,9 +143,16 @@ function ProductFilterScreen() {
             data={categoryList}
             // setCurrentValue={setCurrentValue}
             // currentValue={currentValue}
+            outerViewProps={{
+              style: {
+                backgroundColor: '#F5F5F5',
+                borderColor:"#383A3D",
+                borderWidth:1
+              },
+            }}
           />
         </View>
-        <AppAddToCart title={"Results (30) "}/>
+        <AppAddToCart title={'Results (30) '} />
       </ScrollView>
     </View>
   );

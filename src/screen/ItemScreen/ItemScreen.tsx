@@ -6,6 +6,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import styles from '../../assets/css/style';
 import AppProductCard from '../../component/AppProductCard';
+import {useGetProductByCategory} from '../../hooks/Product/useGetProductByCategory';
+import {Product} from '../../interfaces/IProductData';
+import {useAppSelector} from '../../store/hooks';
 import {appColors} from '../../utils/colors';
 
 const sampleCategory = [
@@ -16,13 +19,25 @@ const sampleCategory = [
   'Shirt Dresses',
   'Shirt Dresses',
 ];
-export default function ItemScreen() {
-  const navigation = useNavigation<any>();
-  const [profileSubCategory, setProfileSubCategory] = useState<any>('Shop All');
+export default function ItemScreen(props: any) {
+  console.log('props are', props.route.params);
+  const userState: any = useAppSelector(state => state?.user?.user);
+  let userData: any;
+  if (userState?.user) {
+  } else {
+    userData = JSON?.parse(userState);
+  }
 
+  const navigation = useNavigation<any>();
+  // const [profileSubCategory, setProfileSubCategory] = useState<any>('Shop All');
+  const getProductByCategoryList: any = useGetProductByCategory({
+    limit: 1,
+    pageNo: 0,
+    categoryId: props.route.params,
+  });
   return (
     <SafeAreaView style={{padding: 16}}>
-      <View style={{height: 50}}>
+      {/* <View style={{height: 50}}>
         <ScrollView
           contentContainerStyle={[{flexDirection: 'row'}, styles.pb5]}
           horizontal={true}
@@ -56,7 +71,7 @@ export default function ItemScreen() {
             );
           })}
         </ScrollView>
-      </View>
+      </View> */}
       <TouchableOpacity
         onPress={() => navigation.navigate('ProductFilterScreen')}
         style={{
@@ -66,8 +81,8 @@ export default function ItemScreen() {
           alignSelf: 'flex-end',
           marginVertical: 5,
         }}>
-        <Text style={{color: '#9B9B9B' , marginRight:3}}>Filter</Text>
-        <Ionicons name="chevron-down" size={15} color="#34283E"  />
+        <Text style={{color: '#9B9B9B', marginRight: 3}}>Filter</Text>
+        <Ionicons name="chevron-down" size={15} color="#34283E" />
       </TouchableOpacity>
       <ScrollView>
         <View
@@ -76,9 +91,32 @@ export default function ItemScreen() {
             flexWrap: 'wrap',
             justifyContent: 'space-between',
           }}>
-          <AppProductCard />
-          <AppProductCard />
-          <AppProductCard />
+          {!getProductByCategoryList.isLoading &&
+            getProductByCategoryList?.data?.product?.map(
+              (individualProduct: Product, index: number) => {
+                return (
+                  <AppProductCard
+                    key={index}
+                    id={individualProduct.id}
+                    name={individualProduct.name}
+                    amount={individualProduct.amount}
+                    quantity={individualProduct.quantity}
+                    weight={individualProduct.weight}
+                    description={individualProduct.description}
+                    stock_status={individualProduct.stock_status}
+                    is_published={individualProduct.is_published}
+                    created_at={individualProduct.created_at}
+                    updated_at={individualProduct.updated_at}
+                  />
+                );
+              },
+            )}
+
+          {/* If no Data is pressetn */}
+          {!getProductByCategoryList.isLoading &&
+            getProductByCategoryList?.data?.product.length == 0 && (
+              <Text>No Categories Avalible</Text>
+            )}
         </View>
       </ScrollView>
     </SafeAreaView>

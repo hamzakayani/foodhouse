@@ -57,17 +57,12 @@ export default function AppDropdown({
 
   return (
     <DropDownPicker
-      style={[
-        styles.dropdownstyle,
-        outerViewStyle,
-        {
-          backgroundColor: '#F5F5F5',
-         borderColor:"#383A3D",
-         borderWidth:1
-        },
+      style={[styles.dropdownstyle, outerViewStyle]}
+      labelStyle={{color: '#212326', fontSize: 14}}
+      textStyle={[
+        {color: '#383A3D', fontSize: 14, fontWeight: '400'},
+        textPropsStyle,
       ]}
-      labelStyle={{color: '#212326', fontSize: 14 }}
-      textStyle={[{color: '#383A3D', fontSize: 14 , fontWeight:"400"}, textPropsStyle]}
       placeholderStyle={{color: '#B9B9B9'}}
       min={1}
       zIndex={3000}

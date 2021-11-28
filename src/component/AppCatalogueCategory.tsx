@@ -5,20 +5,27 @@ import styles from '../assets/css/style';
 
 interface IAppCatalogue {
   catalogueName: string;
+  nextNavigationScreen: string;
+  catalogueData?: any;
 }
-export default function AppCatalogueCategory({catalogueName}: IAppCatalogue) {
+export default function AppCatalogueCategory({
+  catalogueName,
+  nextNavigationScreen,
+  catalogueData,
+}: IAppCatalogue) {
   const navigation = useNavigation<any>();
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('CatalogueScreenLvlTwo');
+        // navigation.navigate('CatalogueScreenLvlOne');
+        // navigation.navigate(nextNavigationScreen, catalogueData);
       }}>
       <View style={innerStyles.catalogueCard}>
         <Text style={[innerStyles.text, {marginTop: 32, marginLeft: 34}]}>
           {catalogueName}
         </Text>
         <Image
-          source={require('../assets/imgs/women.png')}
+          source={require('../assets/imgs/burger.jpeg')}
           style={innerStyles.image}
           resizeMode={'contain'}
         />

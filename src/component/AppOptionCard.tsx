@@ -7,7 +7,7 @@ export default function AppOptionCard(props: any) {
   return (
     <TouchableOpacity
       style={innerStyles.mainContainer}
-      onPress={() => props.setCurrentSelected(props.data.id)}>
+      onPress={() => props.changeValue(props.data.id)}>
       <View style={innerStyles.subMainContainer}>
         <Image
           source={props.data.image}

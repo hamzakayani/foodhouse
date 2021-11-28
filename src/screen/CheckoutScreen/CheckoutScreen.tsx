@@ -14,12 +14,29 @@ import {RadioButton} from 'react-native-paper';
 import AppTextTitle from '../../component/AppTextTitle';
 import {appColors} from '../../utils/colors';
 import AppAddToCart from '../../component/AppAddToCart';
-import styles from '../../assets/css/style';
 import AppCheckoutModal from '../../component/AppCheckoutModal';
+import MapView, {Marker} from 'react-native-maps';
+import {useNavigation} from '@react-navigation/core';
+import {CartResponse} from '../../interfaces/ICartData';
+import {useCheckout} from '../../hooks/Checkout/useCheckout';
+import {SnackbarError, SnackbarSuccess} from '../../utils/SnackBar';
 
-export default function CheckoutScreen() {
-  const [checked, setChecked] = useState('Card');
+export default function CheckoutScreen(props: any) {
+  const [checked, setChecked] = useState('CashOnDelivery');
+  const navigation = useNavigation<any>();
   const [opencheckoutModal, setCheckoutModal] = useState(false);
+  const cartInfo: CartResponse = props.route.params;
+
+  console.log('Cart Info', cartInfo);
+
+  const checkOutCustomerRequest = useCheckout({
+    onSuccess(res) {
+      setCheckoutModal(true);
+    },
+    onError() {
+      SnackbarError('Error in Updating');
+    },
+  });
   return (
     <SafeAreaView style={{flex: 1, paddingLeft: 15, paddingRight: 15}}>
       <ScrollView>
@@ -35,22 +52,34 @@ export default function CheckoutScreen() {
             <TouchableOpacity
               style={{
                 marginRight: 31,
-                marginTop:22,
+                marginTop: 22,
                 flexDirection: 'row',
                 alignItems: 'center',
               }}
               onPress={() => {
                 console.log('Pressed');
+                navigation.navigate('MapScreen');
               }}>
               <Text>Edit</Text>
               <Ionicons name="chevron-forward" size={15} />
             </TouchableOpacity>
           </View>
-          <Text style={{marginLeft: 15}}>Lorem ipsum dolor</Text>
-          <Text style={{margin: 15}}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore
-          </Text>
+          <Text style={{margin: 15}}>{cartInfo.shipping_address}</Text>
+          <MapView
+            style={{flex: 1}}
+            initialRegion={{
+              latitude: 24.7136,
+              longitude: 46.6753,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}>
+            <Marker
+              coordinate={{
+                latitude: 24.7136,
+                longitude: 46.6753,
+              }}
+            />
+          </MapView>
         </View>
 
         {/* Payment Card */}
@@ -61,7 +90,7 @@ export default function CheckoutScreen() {
             }}>
             <AppTextTitle title="Payment" />
             <View>
-              <View
+              {/* <View
                 style={{
                   flexDirection: 'row',
                   marginBottom: 10,
@@ -89,7 +118,7 @@ export default function CheckoutScreen() {
                   <Text>Edit</Text>
                   <Ionicons name="chevron-forward" size={15} />
                 </TouchableOpacity>
-              </View>
+              </View> */}
 
               <View style={{flexDirection: 'row', marginBottom: 10}}>
                 <RadioButton
@@ -100,12 +129,12 @@ export default function CheckoutScreen() {
                   }
                   onPress={() => setChecked('CashOnDelivery')}
                 />
-                <View>
+                <View style={{marginTop: 7}}>
                   <Text>Cash On Delivery</Text>
                 </View>
               </View>
 
-              <View style={{flexDirection: 'row', marginBottom: 10}}>
+              {/* <View style={{flexDirection: 'row', marginBottom: 10}}>
                 <RadioButton
                   value="applePay"
                   color={appColors.darkGrey}
@@ -117,8 +146,8 @@ export default function CheckoutScreen() {
                   source={require('../../assets/imgs/ApplePayIcon.png')}
                   resizeMode={'contain'}
                 />
-              </View>
-
+              </View> */}
+              {/* 
               <View style={{flexDirection: 'row', marginBottom: 10}}>
                 <RadioButton
                   value="googlePay"
@@ -131,7 +160,7 @@ export default function CheckoutScreen() {
                   source={require('../../assets/imgs/GooglePayIcon.png')}
                   resizeMode={'contain'}
                 />
-              </View>
+              </View> */}
             </View>
           </View>
         </View>
@@ -149,7 +178,7 @@ export default function CheckoutScreen() {
               flexDirection: 'row',
             }}>
             <Text style={innerStyles.text}>Products</Text>
-            <Text style={innerStyles.text}>$600</Text>
+            <Text style={innerStyles.text}>${cartInfo.totalBill}</Text>
           </View>
           <View
             style={{
@@ -168,13 +197,25 @@ export default function CheckoutScreen() {
               marginRight: 10,
               flexDirection: 'row',
             }}>
+            <Text style={innerStyles.text}>Tax</Text>
+            <Text style={innerStyles.text}>${cartInfo.salesTax}</Text>
+          </View>
+          <View
+            style={{
+              justifyContent: 'space-between',
+              marginLeft: 10,
+              marginRight: 10,
+              flexDirection: 'row',
+            }}>
             <Text style={innerStyles.textPrice}>Total</Text>
-            <Text style={innerStyles.textPrice}>$620</Text>
+            <Text style={innerStyles.textPrice}>${cartInfo.totalBill}</Text>
           </View>
         </View>
         <TouchableOpacity
           style={{bottom: 0}}
-          onPress={() => setCheckoutModal(true)}>
+          onPress={() => {
+            checkOutCustomerRequest.mutate({});
+          }}>
           <AppAddToCart title={'Check Out'} />
         </TouchableOpacity>
       </ScrollView>
@@ -197,7 +238,7 @@ const innerStyles = StyleSheet.create({
   paymentCard: {
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-    height: 250,
+    height: 100,
     borderRadius: 8,
     marginTop: 8,
     marginBottom: 8,

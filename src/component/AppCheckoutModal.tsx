@@ -46,7 +46,13 @@ export default function AppCheckoutModal({open, setOpen}: any) {
           <Text style={{fontSize: 25, color: '#34283E', marginTop: 7}}>
             Payment was successful
           </Text>
-          <Text style={{fontSize: 14, color: '#605A65', marginVertical: 4 , textAlign:"center"}}>
+          <Text
+            style={{
+              fontSize: 14,
+              color: '#605A65',
+              marginVertical: 4,
+              textAlign: 'center',
+            }}>
             Your order will be delivered soon. It can be tracked in the "Orders"
             section.
           </Text>

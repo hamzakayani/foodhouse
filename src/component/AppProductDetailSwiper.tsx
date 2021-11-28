@@ -4,7 +4,10 @@ import Swiper from 'react-native-swiper';
 
 export default function AppProductDetailSwiper() {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View
+      style={{
+        flexDirection: 'row',
+      }}>
       <Swiper
         style={innerStyles.wrapper}
         loop
@@ -13,17 +16,17 @@ export default function AppProductDetailSwiper() {
         activeDotColor="#FFFFFF">
         <Image
           style={innerStyles.slide}
-          source={require('../assets/imgs/black.jpg')}
+          source={require('../assets/imgs/burger.jpeg')}
           resizeMode={'cover'}
         />
         <Image
           style={innerStyles.slide}
-          source={require('../assets/imgs/black.jpg')}
+          source={require('../assets/imgs/burger.jpeg')}
           resizeMode={'cover'}
         />
         <Image
           style={innerStyles.slide}
-          source={require('../assets/imgs/black.jpg')}
+          source={require('../assets/imgs/burger.jpeg')}
           resizeMode={'cover'}
         />
       </Swiper>
@@ -33,13 +36,13 @@ export default function AppProductDetailSwiper() {
 
 const innerStyles = StyleSheet.create({
   wrapper: {
-    height: 400,
+    height: 250,
   },
   slide: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB',
-    width:390
+    width: '100%',
   },
 });

@@ -27,10 +27,10 @@ export function AppButton({
     <TouchableOpacity
       style={[
         {
-        //   backgroundColor: appColors.golden,
           alignItems: 'center',
           justifyContent: 'center',
           height: 45,
+          borderRadius:5
         },
         buttonStyle,
       ]}
