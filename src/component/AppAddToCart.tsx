@@ -63,7 +63,7 @@ const innerStyles = StyleSheet.create({
     fontSize: 17,
     width: '100%',
     paddingVertical: 13,
-    backgroundColor: '#464447',
+    backgroundColor: '#429b44',
     borderRadius: 8,
     color: 'white',
     textAlign: 'center',

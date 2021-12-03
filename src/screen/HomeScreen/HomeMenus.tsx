@@ -5,7 +5,6 @@ import styles from '../../assets/css/style';
 import AppCaraosaul from '../../component/AppCaraosaul';
 import AppOurFavoritesList from '../../component/AppOurFavoritesList';
 import AppProductCard from '../../component/AppProductCard';
-import AppResturantsCard from '../../component/AppResturantsCard';
 import {useGetAllHeroes} from '../../hooks/Heroes/useGetAllHeroes';
 import {useGetAllFeaturedProduct} from '../../hooks/Product/useGetFeaturedProduct';
 import {IFeatureProductResponse} from '../../interfaces/IFeaturedProductData';
@@ -14,7 +13,7 @@ import {ILocalHeroDataResponse} from '../../interfaces/ILocalHerosData';
 import {Product} from '../../interfaces/IProductData';
 import {useAppSelector} from '../../store/hooks';
 
-export default function HomeScreen() {
+export default function HomeMenus() {
   const userState: any = useAppSelector(state => state?.user?.user);
   let userData: any;
   if (userState?.user) {
@@ -42,7 +41,7 @@ export default function HomeScreen() {
                 "id": 8,
                 "product": {
                     "id": 15,
-                    "name": "Restaurant 1",
+                    "name": "burger 1",
                     "amount": 150,
                     "quantity": 30,
                     "weight": "0.3",
@@ -82,7 +81,7 @@ export default function HomeScreen() {
                 "id": 7,
                 "product": {
                     "id": 14,
-                    "name": "Restaurant 2",
+                    "name": "burger 2",
                     "amount": 100,
                     "quantity": 20,
                     "weight": "0.2",
@@ -133,7 +132,7 @@ export default function HomeScreen() {
                 "id": 5,
                 "product": {
                     "id": 13,
-                    "name": "Restaurant 3",
+                    "name": "burger 3",
                     "amount": 200,
                     "quantity": 20,
                     "weight": "0.2",
@@ -204,7 +203,7 @@ export default function HomeScreen() {
       <ScrollView>
         {/* <AppCaraosaul /> */}
         <View style={{paddingRight: 16, paddingLeft: 16, paddingBottom: 16}}>
-          <View>
+          {/* <View>
             <Text
               style={[
                 styles.ffgt,
@@ -214,11 +213,11 @@ export default function HomeScreen() {
               Categories
             </Text>
             <AppOurFavoritesList />
-          </View>
+          </View> */}
           {!heroesList.isLoading && heroesList?.data?.response && (
             <View style={styles.mt10}>
               <Text style={[styles.ffgt, styles.fs20, {color: '#34283E'}]}>
-              Restaurants
+                Menu
               </Text>
               <View
                 style={{
@@ -230,7 +229,7 @@ export default function HomeScreen() {
                   (individualProduct: any, index: any) => {
                     console.log(`individualProduct`, individualProduct);
                     return (
-                      <AppResturantsCard
+                      <AppProductCard
                         key={index}
                         id={individualProduct.product.id}
                         name={individualProduct.product.name}

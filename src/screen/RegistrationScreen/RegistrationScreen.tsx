@@ -78,15 +78,15 @@ function RegistrationScreen() {
   return (
     <View style={innerStyles.main_container}>
       <Image
-        source={require('../../assets/imgs/logo0.png')}
+        source={require('../../assets/imgs/logo2.jpeg')}
         style={innerStyles.image}
         resizeMode={'contain'}
       />
-      <Image
+      {/* <Image
         source={require('../../assets/imgs/logo1.png')}
         style={innerStyles.image}
         resizeMode={'contain'}
-      />
+      /> */}
       <View style={innerStyles.registerContainer}>
         <Text style={innerStyles.mainHeading}>Register</Text>
         <Text style={innerStyles.plainText}>
@@ -151,7 +151,7 @@ function RegistrationScreen() {
             buttonProps={{
               onPress: onSubmit,
               style: {
-                backgroundColor: '#EA8093',
+                backgroundColor: '#429b44',
                 marginVertical: 20,
                 marginTop: 5,
                 height: 40,
@@ -161,7 +161,7 @@ function RegistrationScreen() {
               style: {
                 fontWeight: '700',
                 fontSize: 14,
-                color: 'black',
+                color: '#fff',
               },
             }}
           />

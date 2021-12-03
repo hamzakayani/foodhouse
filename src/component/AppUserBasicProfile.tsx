@@ -180,7 +180,7 @@ function AppUserBasicProfile(props: any) {
               onPress: onSubmit,
               style: {
                 marginTop: 10,
-                backgroundColor: 'black',
+                backgroundColor: '#429b44',
                 marginVertical: 20,
                 height: 45,
                 borderRadius: 5,

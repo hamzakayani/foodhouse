@@ -41,19 +41,19 @@ const AppBootStrap = React.memo(function () {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <Image
-          source={require('./src/assets/imgs/logo0.png')}
+          source={require('./src/assets/imgs/logo2.jpeg')}
           style={{height: 50,
             width: 190,
             alignSelf: 'center',}}
           resizeMode={'contain'}
         />
-        <Image
+        {/* <Image
           source={require('./src/assets/imgs/logo1.png')}
           style={{height: 50,
             width: 190,
             alignSelf: 'center',}}
           resizeMode={'contain'}
-        />
+        /> */}
       </View>
     );
   }

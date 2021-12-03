@@ -29,6 +29,7 @@ import AppUpdateAddress from './src/component/AppUpdateAddress';
 import AppUserBasicProfile from './src/component/AppUserBasicProfile';
 import CatalogueScreenLvlThree from './src/screen/CatalogueScreen/CatalogueScreenLvlThree';
 import CatalogueScreenLvlFour from './src/screen/CatalogueScreen/CatalogueScreenLvlFour';
+import HomeMenus from './src/screen/HomeScreen/HomeMenus';
 
 const MainStack = createStackNavigator();
 const Stack = createStackNavigator();
@@ -38,7 +39,7 @@ const LogoTitle260 = () => {
   return (
     <Image
       style={{width: 140, height: 40}}
-      source={require('./src/assets/imgs/logo0.png')}
+      source={require('./src/assets/imgs/logo2.jpeg')}
       resizeMode={'contain'}
     />
   );
@@ -48,7 +49,7 @@ const LogoTitle340 = () => {
   return (
     <Image
       style={{width: 140, height: 40}}
-      source={require('./src/assets/imgs/logo0.png')}
+      source={require('./src/assets/imgs/logo2.jpeg')}
       resizeMode={'contain'}
     />
   );
@@ -201,6 +202,10 @@ function MainScreenStack() {
       <Stack.Screen
         name="ProductDetailScreen"
         component={ProductDetailScreen}
+      />
+      <Stack.Screen
+        name="HomeMenus"
+        component={HomeMenus}
       />
       <Stack.Screen
         name="AppAddAddress"

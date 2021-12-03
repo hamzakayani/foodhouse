@@ -49,17 +49,16 @@ export default function AppOurFavoritesList() {
                   styles.shadow,
                   {
                     marginLeft: 5,
-
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor:'#EA8093'
+                    backgroundColor:'#429b44'
                   },
                 ]}>
                   <Text
                     style={[
                       styles.fs16,
                       styles.ffm,
-                      styles.colorBlack,
+                      styles.colorWhite,
                       {
                         // fontWeight: 'bold',
                       },
